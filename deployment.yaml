@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-go-tmpl
+  template:
+    metadata:
+      labels:
+        app: hello-go-tmpl
+    spec:
+      containers:
+      - name: go-app-container
+        image: siyangzhang/hello-go-img
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
