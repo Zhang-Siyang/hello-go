@@ -3,21 +3,22 @@ kind: Deployment
 metadata:
   name: hello-go
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: hello-go-tmpl
+      app: hello-go-img
   template:
     metadata:
       labels:
-        app: hello-go-tmpl
+        app: hello-go-img
     spec:
       containers:
-      - name: go-app-container
+      - name: image-api
         image: siyangzhang/hello-go-img
+        imagePullPolicy: Never
         resources:
           limits:
-            memory: "128Mi"
+            memory: "64Mi"
             cpu: "500m"
         ports:
         - containerPort: 8080

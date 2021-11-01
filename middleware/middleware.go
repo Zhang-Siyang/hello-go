@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -30,4 +31,10 @@ func GetTraceID(c context.Context) string {
 		}
 	}
 	return "(nil)"
+}
+
+func HeaderMachine(c *gin.Context) {
+	c.Next()
+	hostname, _ := os.Hostname()
+	c.Header("X-Machine-Hostname", hostname)
 }

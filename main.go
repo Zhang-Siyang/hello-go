@@ -13,13 +13,14 @@ func setRoute(root *gin.Engine) {
 	gCheck := root.Group("/check")
 	{
 		mainCtl := controller.CheckController{}
+		gCheck.GET("/machine/info", mainCtl.MachineInfo)
 		gCheck.GET("/ping", mainCtl.Ping)
 	}
 }
 
 func getEngine() *gin.Engine {
 	r := gin.Default()
-	r.Use(middleware.SetLogger)
+	r.Use(middleware.HeaderMachine, middleware.SetLogger)
 	return r
 }
 
