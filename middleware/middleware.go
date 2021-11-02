@@ -2,12 +2,16 @@ package middleware
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
 
+	"hello/define"
 	"hello/lib/zaps"
 )
 
@@ -37,4 +41,22 @@ func HeaderMachine(c *gin.Context) {
 	c.Next()
 	hostname, _ := os.Hostname()
 	c.Header("X-Machine-Hostname", hostname)
+}
+
+func UserAuth(c *gin.Context) {
+	_, _ = define.ReqHeaderUserID, define.ReqHeaderUserToken
+	type UserAuth struct {
+		UserID    int64  `header:"X-User-Id" binding:"required"`
+		UserToken string `header:"X-User-Token" binding:"required"`
+	}
+	userAuth := new(UserAuth)
+	if err := c.ShouldBindHeader(userAuth); err != nil {
+		c.AbortWithStatus(http.StatusForbidden)
+		return
+	} else if userAuth.UserToken != strconv.FormatInt(userAuth.UserID, 10)+"-Token" {
+		zaps.Logger(c).Debug(fmt.Sprintf("reject user request, can't pass auth, UserID: %d", userAuth.UserID))
+		c.AbortWithStatus(http.StatusForbidden)
+		return
+	}
+	c.Next()
 }

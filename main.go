@@ -16,6 +16,11 @@ func setRoute(root *gin.Engine) {
 		gCheck.GET("/machine/info", mainCtl.MachineInfo)
 		gCheck.GET("/ping", mainCtl.Ping)
 	}
+	tmp := root.Group("/tmp", middleware.UserAuth)
+	{
+		tmpCtl := controller.TemporaryController{}
+		tmp.GET("/auth-test", tmpCtl.OK)
+	}
 }
 
 func getEngine() *gin.Engine {
