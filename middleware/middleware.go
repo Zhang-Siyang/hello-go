@@ -40,7 +40,7 @@ func GetTraceID(c context.Context) string {
 func HeaderMachine(c *gin.Context) {
 	c.Next()
 	hostname, _ := os.Hostname()
-	c.Header("X-Machine-Hostname", hostname)
+	c.Header(define.RespHeaderHostname, hostname)
 }
 
 func UserAuth(c *gin.Context) {
