@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package="hello/protos";
+package pb;
+
+service JackieChan {
+  rpc GetLonger (LongerRequest) returns (LongerReply) {}
+}
+
+message LongerRequest {
+  string m = 1;
+  string n = 2;
+}
+
+message LongerReply {
+  string longer = 1;
+}

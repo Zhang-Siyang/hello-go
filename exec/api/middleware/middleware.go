@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap"
 
 	"hello/define"
-	"hello/lib/zaps"
+	"hello/pkg/zaps"
 )
 
 type TraceIDKeyType string

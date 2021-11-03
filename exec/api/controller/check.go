@@ -2,14 +2,14 @@ package controller
 
 import (
 	"hello/define"
-	"hello/lib/machine"
+	"hello/pkg/machine"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 
-	"hello/lib/zaps"
+	"hello/pkg/zaps"
 )
 
 type CheckController struct{}
