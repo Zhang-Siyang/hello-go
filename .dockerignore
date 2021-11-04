@@ -1,2 +1,13 @@
-.idea
 deployment.yaml
+
+# COPY FROM .gitignore
+# DO NOT EDIT
+/.idea
+.DS_Store
+*.test
+*.so
+*.pb.go
+*.out
+*.exe
+*.dylib
+*.dll
