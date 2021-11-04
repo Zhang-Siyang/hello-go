@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option go_package="hello/protos";
-package pb;
+package protos;
 
 service JackieChan {
   rpc GetLonger (LongerRequest) returns (LongerReply) {}

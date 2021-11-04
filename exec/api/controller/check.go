@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"hello/define"
-	"hello/pkg/machine"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 
+	"hello/define"
+	"hello/pkg/machine"
 	"hello/pkg/zaps"
 )
 

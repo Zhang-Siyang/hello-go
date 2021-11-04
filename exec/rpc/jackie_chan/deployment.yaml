@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-go-deploy
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: hello-go-img
+  template:
+    metadata:
+      labels:
+        app: hello-go-img
+    spec:
+      containers:
+      - name: hello-go-img
+        image: siyangzhang/hello-go-img
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-go-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: hello-go-img
+  type: LoadBalancer
+  sessionAffinity: None

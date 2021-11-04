@@ -2,28 +2,29 @@ package main
 
 import (
 	"fmt"
-	controller2 "hello/exec/api/controller"
-	"hello/exec/api/middleware"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
 	"hello/define"
+	"hello/exec/api/controller"
+	"hello/exec/api/middleware"
 	"hello/pkg/zaps"
 )
 
 func setRoute(root *gin.Engine) {
 	gCheck := root.Group("/check")
 	{
-		mainCtl := controller2.CheckController{}
+		mainCtl := controller.CheckController{}
 		gCheck.GET("/machine/info", mainCtl.MachineInfo)
 		gCheck.GET("/ping", mainCtl.Ping)
 	}
-	tmp := root.Group("/tmp", middleware.UserAuth)
+	tmp := root.Group("/tmp")
 	{
-		tmpCtl := controller2.TemporaryController{}
-		tmp.GET("/auth-test", tmpCtl.OK)
+		tmpCtl := controller.TemporaryController{}
+		tmp.GET("/auth-test", middleware.UserAuth, tmpCtl.OK)
+		tmp.GET("/longer/:a/:b", tmpCtl.GetLonger)
 	}
 }
 

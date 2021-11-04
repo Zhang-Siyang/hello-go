@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"net"
+
 	"google.golang.org/grpc"
+
 	"hello/pkg/zaps"
 	pb "hello/protos"
-	"net"
 )
 
 type server struct {
