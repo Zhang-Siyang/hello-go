@@ -2,8 +2,8 @@ deployment.yaml
 
 # COPY FROM .gitignore
 # DO NOT EDIT
+/out
 /.idea
-.DS_Store
 *.test
 *.so
 *.pb.go
@@ -11,3 +11,4 @@ deployment.yaml
 *.exe
 *.dylib
 *.dll
+**/.DS_Store

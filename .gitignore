@@ -1,5 +1,5 @@
+/out
 /.idea
-.DS_Store
 *.test
 *.so
 *.pb.go
@@ -7,3 +7,4 @@
 *.exe
 *.dylib
 *.dll
+**/.DS_Store
