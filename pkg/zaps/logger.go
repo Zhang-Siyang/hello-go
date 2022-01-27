@@ -39,6 +39,7 @@ func GlobalLogger() *zap.Logger {
 				zapcore.AddSync(os.Stdout),
 				zapcore.DebugLevel,
 			))
-		})
+		},
+	)
 	return _logger
 }
