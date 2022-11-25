@@ -19,10 +19,15 @@ type TraceIDKeyType string
 
 const TraceIDContextKey = TraceIDKeyType("")
 
+func EnableUUIDRandPool() {
+	uuid.EnableRandPool()
+}
+
 func SetLogger(c *gin.Context) {
 	traceID := uuid.NewString()
 	c.Request = c.Request.WithContext(context.WithValue(c.Request.Context(), zaps.ContentKey, zaps.Logger(c.Request.Context()).With(zap.String("trace-id", traceID))))
 	c.Request = c.Request.WithContext(context.WithValue(c.Request.Context(), TraceIDContextKey, traceID))
+	c.Next()
 }
 
 func GetTraceID(c context.Context) string {
@@ -38,9 +43,9 @@ func GetTraceID(c context.Context) string {
 }
 
 func HeaderMachine(c *gin.Context) {
-	c.Next()
 	hostname, _ := os.Hostname()
 	c.Header(define.RespHeaderHostname, hostname)
+	c.Next()
 }
 
 func UserAuth(c *gin.Context) {
