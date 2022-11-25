@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	BinaryVersion         string // git hash，通过 build 注入
+	BinaryVersion         = "_"  // git hash，通过 build 注入
 	BinaryBuildTime       int64  // 构建时间，通过 build 注入
 	binaryBuildTimeString string // 只能注入变量到 string 类型，所以用一个 string 来中转
 )
