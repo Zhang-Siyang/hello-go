@@ -48,9 +48,12 @@ func (t TemporaryController) GetLonger(c *gin.Context) {
 	})
 }
 
-func (TemporaryController) getJackieChanClient(context.Context) protos.JackieChanClient {
+func (TemporaryController) getJackieChanClient(ctx context.Context) protos.JackieChanClient {
 	jackieChanClient.Do(func() {
-		conn, _ := grpc.Dial("localhost:3001", grpc.WithInsecure(), grpc.WithBlock())
+		// TODO 是不是要加一个 panic
+		_ctx, cancel := context.WithTimeout(ctx, time.Second)
+		defer cancel()
+		conn, _ := grpc.DialContext(_ctx, "localhost:3001", grpc.WithInsecure(), grpc.WithBlock())
 		client := protos.NewJackieChanClient(conn)
 		jackieChanClient.client = client
 	})

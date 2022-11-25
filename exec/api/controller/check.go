@@ -9,23 +9,23 @@ import (
 
 	"hello/define"
 	"hello/pkg/machine"
-	"hello/pkg/zaps"
 )
 
 type CheckController struct{}
 
 func (CheckController) Ping(c *gin.Context) {
-	zaps.Logger(c).Info("hello!")
-	c.JSON(http.StatusOK, gin.H{"t": time.Now().UnixNano()})
+	c.JSON(http.StatusOK, gin.H{"t": time.Now().Format(time.RFC1123Z)})
 	return
 }
 
+func (CheckController) Envs(c *gin.Context) {
+	c.JSON(http.StatusOK, os.Environ())
+}
+
 func (CheckController) MachineInfo(c *gin.Context) {
-	zaps.Logger(c).Info("check MachineInfo")
 	hostname, _ := os.Hostname()
 	ip := machine.GetIP(c)
 
-	c.Header(define.RespHeaderHostname, hostname)
 	c.Header(define.RespHeaderIP, ip)
 	c.JSON(http.StatusOK, gin.H{
 		define.RespHeaderHostname: hostname,
