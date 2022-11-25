@@ -1,4 +1,4 @@
-FROM golang:alpine AS build
+FROM golang:1.19-alpine AS build
 WORKDIR /app
 RUN apk add git
 COPY go.mod go.sum ./
